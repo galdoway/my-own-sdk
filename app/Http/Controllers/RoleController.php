@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\SDKs\DummyJson\DummyJsonClient;
+use App\SDKs\KeycloakAdmin\KeycloakAdminClient;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class RoleController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
 
-    public function __construct(private readonly DummyJsonClient $client){}
+    public function __construct(private readonly KeycloakAdminClient  $client){}
+
     /**
      * Display a listing of the resource.
      * @throws ConnectionException
      */
     public function index(): JsonResponse
     {
-        $response = $this->client->products()->all();
+        $response = $this->client->roles()->getAllClientRoles('3c5165ae-6898-44e2-816c-24f377781588');
         return response()->json($response);
     }
 

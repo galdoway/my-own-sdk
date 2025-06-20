@@ -7,6 +7,7 @@ use App\SDKs\KeycloakAdmin\Enums\RoleType;
 use App\SDKs\KeycloakAdmin\Exceptions\KeycloakException;
 use App\SDKs\KeycloakAdmin\Exceptions\ResourceNotFoundException;
 use App\SDKs\KeycloakAdmin\Resources\RoleResource;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -25,6 +26,7 @@ class RoleService
      * @param bool $useCache Use cached results
      * @param int $cacheTtl Cache TTL in seconds
      * @return Collection<RoleData>
+     * @throws KeycloakException|ConnectionException
      */
     public function getAllRoles(
         ?RoleType $type = null,
@@ -81,9 +83,9 @@ class RoleService
      * @param string|null $clientId Required for client roles
      * @param string|null $description Role description
      * @param array $attributes Custom attributes
-     * @param bool $composite Whether role is composite
+     * @param bool $composite Whether a role is composite
      * @return RoleData
-     * @throws KeycloakException
+     * @throws KeycloakException|ConnectionException
      */
     public function createRole(
         string $name,
@@ -150,7 +152,7 @@ class RoleService
      * @param array $updates Fields to update
      * @param string|null $clientId Required for client roles
      * @return RoleData
-     * @throws KeycloakException
+     * @throws KeycloakException|ConnectionException
      */
     public function updateRole(
         string $roleName,
@@ -225,9 +227,9 @@ class RoleService
      * @param string $roleName Role name
      * @param RoleType $type Role type
      * @param string|null $clientId Required for client roles
-     * @param bool $force Force deletion even if role has dependencies
+     * @param bool $force Force deletion even if a role has dependencies
      * @return bool
-     * @throws KeycloakException
+     * @throws KeycloakException|ConnectionException
      */
     public function deleteRole(
         string $roleName,

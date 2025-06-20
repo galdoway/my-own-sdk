@@ -90,7 +90,7 @@ enum MappingType: string
     }
 
     /**
-     * Get all types as array with labels
+     * Get all types as an array with labels
      */
     public static function toSelectArray(): array
     {

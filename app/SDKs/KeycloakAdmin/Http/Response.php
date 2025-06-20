@@ -55,7 +55,9 @@ class Response implements Arrayable, Jsonable, JsonSerializable
         return data_get($this->data, $key) !== null;
     }
 
-    // Métodos específicos para respuestas de Keycloak
+    /*
+     * Métodos específicos para respuestas de Keycloak
+     */
 
     /**
      * Para respuestas que devuelven arrays (listas de roles, grupos, etc.)

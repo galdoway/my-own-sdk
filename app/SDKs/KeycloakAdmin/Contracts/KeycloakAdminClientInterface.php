@@ -17,9 +17,9 @@ interface KeycloakAdminClientInterface
     /**
      * Create client instance from Laravel request
      *
-     * @param Request $request HTTP request containing bearer token
+     * @param Request $request HTTP request containing a bearer token
      * @return static
-     * @throws KeycloakException When token is missing or invalid
+     * @throws KeycloakException When a token is missing or invalid
      */
     public static function fromRequest(Request $request): static;
 
@@ -114,7 +114,7 @@ interface KeycloakAdminClientInterface
     /**
      * Test connection to Keycloak server
      *
-     * @return bool True if connection is successful
+     * @return bool True if the connection is successful
      * @throws KeycloakException When connection fails
      */
     public function testConnection(): bool;
@@ -122,21 +122,21 @@ interface KeycloakAdminClientInterface
     /**
      * Get server information
      *
-     * @return array Server info including version, themes, etc.
+     * @return array Server info including a version, themes, etc.
      * @throws KeycloakException When request fails
      */
     public function getServerInfo(): array;
 
     /**
-     * Get current user's token info (introspection)
+     * Get the current user's token info (introspection)
      *
      * @return array Token information
-     * @throws KeycloakException When token is invalid
+     * @throws KeycloakException When a token is invalid
      */
     public function getTokenInfo(): array;
 
     /**
-     * Check if current token has specific permissions
+     * Check if the current token has specific permissions
      *
      * @param array $permissions Required permissions
      * @return bool True if all permissions are present
@@ -144,28 +144,28 @@ interface KeycloakAdminClientInterface
     public function hasPermissions(array $permissions): bool;
 
     /**
-     * Check if current token can manage roles
+     * Check if the current token can manage roles
      *
      * @return bool
      */
     public function canManageRoles(): bool;
 
     /**
-     * Check if current token can manage groups
+     * Check if the current token can manage groups
      *
      * @return bool
      */
     public function canManageGroups(): bool;
 
     /**
-     * Check if current token can manage users
+     * Check if the current token can manage users
      *
      * @return bool
      */
     public function canManageUsers(): bool;
 
     /**
-     * Check if current token can manage clients
+     * Check if the current token can manage clients
      *
      * @return bool
      */

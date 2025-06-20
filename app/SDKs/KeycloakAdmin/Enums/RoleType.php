@@ -46,7 +46,7 @@ enum RoleType: string
     }
 
     /**
-     * Get the boolean value for clientRole field
+     * Get the boolean value for the clientRole field
      */
     public function isClientRole(): bool
     {
@@ -81,7 +81,7 @@ enum RoleType: string
     }
 
     /**
-     * Get all types as array with labels
+     * Get all types as an array with labels
      */
     public static function toSelectArray(): array
     {

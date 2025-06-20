@@ -77,7 +77,7 @@ class RoleData extends Data
     }
 
     /**
-     * Get created date as Carbon instance
+     * Get created date as a Carbon instance
      */
     public function getCreatedAt(): ?Carbon
     {
@@ -175,7 +175,7 @@ class RoleData extends Data
     }
 
     /**
-     * Get role as a simple array for API responses
+     * Get a role as a simple array for API responses
      */
     public function toSimpleArray(): array
     {
@@ -189,7 +189,7 @@ class RoleData extends Data
     }
 
     /**
-     * Get role for API responses with additional metadata
+     * Get a role for API responses with additional metadata
      */
     public function toApiArray(): array
     {
@@ -213,7 +213,7 @@ class RoleData extends Data
     }
 
     /**
-     * Get role for Keycloak API requests
+     * Get a role for Keycloak API requests
      */
     public function toKeycloakArray(): array
     {

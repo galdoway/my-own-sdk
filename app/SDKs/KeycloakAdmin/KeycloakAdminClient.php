@@ -15,12 +15,11 @@ use Illuminate\Support\Facades\Log;
 //use App\SDKs\KeycloakAdmin\Services\GroupService;
 //use App\SDKs\KeycloakAdmin\Services\RoleMappingService;
 
-#[AllowDynamicProperties]
 class KeycloakAdminClient implements KeycloakAdminClientInterface
 {
     private Client $httpClient;
     private array $config;
-    private ?string $bearerToken = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqUGJjYkdmd0F4OFFua0FKUzdveVBlOElqbDNSWG1WV1RSb1JfY1dVOE5RIn0.eyJleHAiOjE3NTA0MDExMDUsImlhdCI6MTc1MDQwMDgwNSwiYXV0aF90aW1lIjoxNzUwNDAwODA1LCJqdGkiOiJvbnJ0YWM6Y2M0NDc5ZmQtMmJiYS00YWNmLWFkNDEtMTk3YzJmYzY3ZDdiIiwiaXNzIjoiaHR0cHM6Ly9rZXljbG9hay5hbmVwaGVtZXJhbGFwcC54eXovcmVhbG1zL2xvY2FsaG9zdCIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYWNjb3VudCJdLCJzdWIiOiI4OWRkMGQzNC01ZmUwLTRiZmItYWE2OS1mMTBiYmFhOTU2MGEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzcGEiLCJzaWQiOiJjZDA0YjZiNy1kOGMwLTQ4NDctODFmNS0wNTE4MGIzNTRkYTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1sb2NhbGhvc3QiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJ2aWV3LXJlYWxtIiwidmlldy1pZGVudGl0eS1wcm92aWRlcnMiLCJtYW5hZ2UtaWRlbnRpdHktcHJvdmlkZXJzIiwiaW1wZXJzb25hdGlvbiIsInJlYWxtLWFkbWluIiwiY3JlYXRlLWNsaWVudCIsIm1hbmFnZS11c2VycyIsInF1ZXJ5LXJlYWxtcyIsInZpZXctYXV0aG9yaXphdGlvbiIsInF1ZXJ5LWNsaWVudHMiLCJxdWVyeS11c2VycyIsIm1hbmFnZS1ldmVudHMiLCJtYW5hZ2UtcmVhbG0iLCJ2aWV3LWV2ZW50cyIsInZpZXctdXNlcnMiLCJ2aWV3LWNsaWVudHMiLCJtYW5hZ2UtYXV0aG9yaXphdGlvbiIsIm1hbmFnZS1jbGllbnRzIiwicXVlcnktZ3JvdXBzIl19LCJzcGEiOnsicm9sZXMiOlsicG9zdHM6dXBkYXRlIiwicG9zdHM6aW5kZXgiLCJwb3N0czpyZWFkIiwicG9zdHM6ZGVsZXRlIiwicG9zdHM6Y3JlYXRlIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJBbGJlcnRvIEdhbGRhbWV6IiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWxiZXJ0by5nYWxkYW1lekBlbGFuaWluLmNvbSIsImdpdmVuX25hbWUiOiJBbGJlcnRvIiwiZmFtaWx5X25hbWUiOiJHYWxkYW1leiIsImVtYWlsIjoiYWxiZXJ0by5nYWxkYW1lekBlbGFuaWluLmNvbSJ9.NjqnKCuWjsln8DH-1-Zd929LQn-QRRAwa2_bprOjMJs0ZCu2EGqAZTMH-6oidm63TrjgnBV5AVnaHLiFOOcVjqRQDdWd3Qp5eUvkQJd28URolwPsqJuAButJ7SPRewA_Oc8_RBaK6pZMAB_s1Ch4RxOq01xZJeJJGD00PrVeHOLjDn1TCnUmhuaWeP83Av_vJg5_ho8dFffHJzNc9w5ADJP_mFbxM0BUwPB6vqQJfl9WkDwiZZeu891VNU3m2zqJ9-hXrI9mXSECd_XLEcT1zM2QkYOaeB7FfQQlfh6HzUdBZDmLyvMACPEHoQGImucgvl7d0YvrSTEk4TXgfaQobg';
+    private ?string $bearerToken = null;
     private string $realm;
     private array $stats = [];
     private bool $debugMode = false;
@@ -28,11 +27,11 @@ class KeycloakAdminClient implements KeycloakAdminClientInterface
 
     // Resource instances
     private ?RoleResource $roleResource = null;
+    private ?RoleService $roleService = null;
 //    private ?GroupResource $groupResource = null;
 //    private ?RoleMappingResource $roleMappingResource = null;
 //
 //    // Service instances
-//    private ?RoleService $roleService = null;
 //    private ?GroupService $groupService = null;
 //    private ?RoleMappingService $roleMappingService = null;
 
@@ -132,7 +131,6 @@ class KeycloakAdminClient implements KeycloakAdminClientInterface
     public function withoutToken(): self
     {
         $this->bearerToken = null;
-        $this->httpClient->withoutAuth();
         $this->resetResourceInstances();
 
         return $this;
@@ -465,11 +463,11 @@ class KeycloakAdminClient implements KeycloakAdminClientInterface
     private function resetResourceInstances(): void
     {
         $this->roleResource = null;
-        $this->groupResource = null;
-        $this->roleMappingResource = null;
+//        $this->groupResource = null;
+//        $this->roleMappingResource = null;
         $this->roleService = null;
-        $this->groupService = null;
-        $this->roleMappingService = null;
+//        $this->groupService = null;
+//        $this->roleMappingService = null;
     }
 
     private function checkSinglePermission(string $permission): bool
@@ -478,6 +476,9 @@ class KeycloakAdminClient implements KeycloakAdminClientInterface
         return true; // This would contain actual logic to validate permissions
     }
 
+    /**
+     * @throws KeycloakException
+     */
     private function executeSingleOperation(array $operation): mixed
     {
         $type = $operation['type'] ?? throw new KeycloakException('Operation type is required');

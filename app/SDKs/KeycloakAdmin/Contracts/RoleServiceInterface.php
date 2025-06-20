@@ -109,8 +109,8 @@ interface RoleServiceInterface
      * @param Collection|array $childRoles Child roles to add/remove
      * @param string $action Action to perform ('add' or 'remove')
      * @param string|null $clientId Required for client roles
-     * @return bool True if operation was successful
-     * @throws ResourceNotFoundException When parent role doesn't exist
+     * @return bool True if the operation was successful
+     * @throws ResourceNotFoundException When a parent role doesn't exist
      * @throws KeycloakException When operation fails or invalid action
      */
     public function manageCompositeRoles(
@@ -127,8 +127,8 @@ interface RoleServiceInterface
      * @param string $roleName Role name to analyze
      * @param RoleType $type Role type
      * @param string|null $clientId Required for client roles
-     * @return array Hierarchy information with role, children, parents, depth
-     * @throws ResourceNotFoundException When role doesn't exist
+     * @return array Hierarchy information with a role, children, parents, depth
+     * @throws ResourceNotFoundException When a role doesn't exist
      * @throws KeycloakException When request fails
      */
     public function getRoleHierarchy(
@@ -169,7 +169,7 @@ interface RoleServiceInterface
      * @param string $roleName Role name to check
      * @param RoleType $type Role type
      * @param string|null $clientId Required for client roles
-     * @return bool True if role exists
+     * @return bool True if a role exists
      * @throws KeycloakException When request fails
      */
     public function roleExists(
@@ -192,13 +192,13 @@ interface RoleServiceInterface
     ): Collection;
 
     /**
-     * Find role by name with type detection
+     * Find a role by name with type detection
      *
      * @param string $roleName Role name to find
      * @param RoleType $type Role type
      * @param string|null $clientId Required for client roles
      * @return RoleData Found role data
-     * @throws ResourceNotFoundException When role doesn't exist
+     * @throws ResourceNotFoundException When a role doesn't exist
      * @throws KeycloakException When request fails
      */
     public function findRole(
@@ -215,7 +215,7 @@ interface RoleServiceInterface
      * @param string|null $clientId Required for client roles
      * @param bool $recursive Get all descendants recursively
      * @return Collection<RoleData> Child roles
-     * @throws ResourceNotFoundException When role doesn't exist
+     * @throws ResourceNotFoundException When a role doesn't exist
      * @throws KeycloakException When request fails
      */
     public function getCompositeChildren(
@@ -233,8 +233,8 @@ interface RoleServiceInterface
      * @param Collection|array $childRoles Child roles to add
      * @param string|null $clientId Required for client roles
      * @return bool True if successful
-     * @throws ResourceNotFoundException When parent role doesn't exist
-     * @throws KeycloakException When operation fails
+     * @throws ResourceNotFoundException When a parent role doesn't exist
+     * @throws KeycloakException When an operation fails
      */
     public function addCompositeChildren(
         string $parentRoleName,
@@ -251,8 +251,8 @@ interface RoleServiceInterface
      * @param Collection|array $childRoles Child roles to remove
      * @param string|null $clientId Required for client roles
      * @return bool True if successful
-     * @throws ResourceNotFoundException When parent role doesn't exist
-     * @throws KeycloakException When operation fails
+     * @throws ResourceNotFoundException When a parent role doesn't exist
+     * @throws KeycloakException When an operation fails
      */
     public function removeCompositeChildren(
         string $parentRoleName,
@@ -274,7 +274,7 @@ interface RoleServiceInterface
     ): array;
 
     /**
-     * Get role suggestions based on partial name
+     * Get role suggestions based on a partial name
      *
      * @param string $partialName Partial role name
      * @param RoleType|null $type Filter by role type
@@ -291,7 +291,7 @@ interface RoleServiceInterface
     ): Collection;
 
     /**
-     * Clone a role with new name
+     * Clone a role with a new name
      *
      * @param string $sourceRoleName Source role name
      * @param string $newRoleName New role name
@@ -299,7 +299,7 @@ interface RoleServiceInterface
      * @param string|null $clientId Required for client roles
      * @param bool $cloneComposites Also clone composite relationships
      * @return RoleData Cloned role data
-     * @throws ResourceNotFoundException When source role doesn't exist
+     * @throws ResourceNotFoundException When a source role doesn't exist
      * @throws KeycloakException When cloning fails
      */
     public function cloneRole(

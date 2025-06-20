@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @method withAuth(string|null $bearerToken)
+ */
 class Client
 {
     private PendingRequest $httpClient;
